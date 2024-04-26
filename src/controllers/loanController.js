@@ -1,4 +1,4 @@
-const loanService = require('../services/loanService');
+const loanService = require("../services/loanService");
 
 exports.checkEligibility = async (req, res) => {
   try {
@@ -41,6 +41,19 @@ exports.viewLoan = async (req, res) => {
     const loanDetails = await loanService.getLoanById(loanId);
 
     res.json(loanDetails);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateLoan = async (req, res) => {
+  try {
+    const { loanId } = req.params;
+    const loanData = req.body;
+
+    const updatedLoan = await loanService.updateLoan(loanId, loanData);
+
+    res.json(updatedLoan);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

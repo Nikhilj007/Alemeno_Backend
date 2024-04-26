@@ -100,8 +100,20 @@ const getLoanById = async (loanId) => {
   };
 };
 
+// edit loan details by loan id
+const updateLoan = async (loanId, loanData) => {
+  const loan = await Loan.getLoanById(loanId);
+  if (!loan) {
+    throw new Error('Loan not found');
+  }
+
+  const updatedLoan = await Loan.updateLoan(loanId, loanData);
+  return updatedLoan;
+};
+
 module.exports = {
   checkEligibility,
   createLoan,
   getLoanById,
+  updateLoan,
 };
