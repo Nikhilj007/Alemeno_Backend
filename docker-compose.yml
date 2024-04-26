@@ -1,0 +1,32 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgresql://username:password@db:5432/credit_approval_system
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbit:5672//
+    depends_on:
+      - db
+      - rabbit
+
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=credit_approval_system
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  rabbit:
+    image: rabbitmq:3.8-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+volumes:
+  postgres-data:

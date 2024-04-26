@@ -1,7 +1,7 @@
 const fs = require('fs');
 const csv = require('csv-parser');
-const Customer = require('./models/Customer');
-const Loan = require('./models/Loan');
+const Customer = require('../models/Customer');
+const Loan = require('../models/Loan');
 
 const ingestCustomerData = async () => {
   try {
