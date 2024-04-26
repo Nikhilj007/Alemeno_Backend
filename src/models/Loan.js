@@ -41,4 +41,62 @@ const Loan = sequelize.define('Loan', {
   }
 });
 
+// Create a new loan
+Loan.createLoan = async (loanData) => {
+  try {
+    const loan = await Loan.create(loanData);
+    return loan;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get all loans
+Loan.getAllLoans = async () => {
+  try {
+    const loans = await Loan.findAll();
+    return loans;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get a loan by ID
+Loan.getLoanById = async (id) => {
+  try {
+    const loan = await Loan.findByPk(id);
+    return loan;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Update a loan
+Loan.updateLoan = async (id, loanData) => {
+  try {
+    const loan = await Loan.findByPk(id);
+    if (loan) {
+      await loan.update(loanData);
+      return loan;
+    }
+    throw new Error('Loan not found');
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Delete a loan
+Loan.deleteLoan = async (id) => {
+  try {
+    const loan = await Loan.findByPk(id);
+    if (loan) {
+      await loan.destroy();
+      return true;
+    }
+    throw new Error('Loan not found');
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = Loan;

@@ -33,4 +33,64 @@ const Customer = sequelize.define('Customer', {
   }
 });
 
+
+// Create a new customer
+Customer.createCustomer = async (customerData) => {
+  try {
+    const customer = await Customer.create(customerData);
+    return customer;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get all customers
+Customer.getAllCustomers = async () => {
+  try {
+    const customers = await Customer.findAll();
+    return customers;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get a customer by ID
+Customer.getCustomerById = async (id) => {
+  try {
+    const customer = await Customer.findByPk(id);
+    return customer;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Update a customer
+Customer.updateCustomer = async (id, customerData) => {
+  try {
+    const customer = await Customer.findByPk(id);
+    if (customer) {
+      await customer.update(customerData);
+      return customer;
+    }
+    throw new Error('Customer not found');
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Delete a customer
+Customer.deleteCustomer = async (id) => {
+  try {
+    const customer = await Customer.findByPk(id);
+    if (customer) {
+      await customer.destroy();
+      return true;
+    }
+    throw new Error('Customer not found');
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 module.exports = Customer;
