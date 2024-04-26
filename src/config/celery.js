@@ -10,14 +10,9 @@ const backend = process.env.DATABASE_URL || 'postgresql://username:password@loca
 // console.log(broker, backend);
 
 // Create a Celery instance
-const cel = celery.createClient( broker, backend);
-
-// Connect to the Celery broker
-// cel.connect().then(() => {
-//   console.log('Connected to Celery broker');
-// }).catch((err) => {
-//   console.error('Failed to connect to Celery broker:', err);
-// });
+const cel = celery.createClient( 
+    broker
+);
 
 const dataIngestionTask = cel.createTask('data_ingestion', ingestData);
 
